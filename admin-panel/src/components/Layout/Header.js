@@ -7,9 +7,21 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Debug için console log ekleyelim
+  console.log('Header props:', { toggleSidebar, sidebarOpen });
+
   const handleLogout = () => {
     logout();
     navigate('/login');
+  };
+
+  const handleMenuToggle = () => {
+    console.log('Hamburger menu clicked!');
+    if (toggleSidebar) {
+      toggleSidebar();
+    } else {
+      console.error('toggleSidebar function not available!');
+    }
   };
 
   const getPageTitle = () => {
@@ -24,31 +36,32 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top header-nav">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
       <div className="container-fluid">
-        {/* Mobile Menu Toggle */}
+        {/* HAMBURGER MENU BUTTON - Tüm Ekranlarda Görünür */}
         <button 
-          className="btn btn-link text-dark d-lg-none p-0 me-3"
-          onClick={toggleSidebar}
+          className="btn btn-outline-danger me-3 hamburger-menu-btn"
+          onClick={handleMenuToggle}
           aria-label="Toggle sidebar"
+          type="button"
         >
           <i className="bi bi-list fs-4"></i>
         </button>
 
-        {/* Page Title */}
+        {/* Page Title - Desktop Only */}
         <div className="d-none d-lg-block">
           <h4 className="mb-0 text-dark fw-bold">{getPageTitle()}</h4>
         </div>
 
         {/* Mobile Brand */}
-        <div className="d-lg-none">
+        <div className="d-lg-none flex-grow-1">
           <span className="navbar-brand mb-0 h1 text-danger fw-bold">
             <i className="bi bi-calendar-event-fill me-2"></i>
             acara
           </span>
         </div>
 
-        {/* Search Bar */}
+        {/* Search Bar - Desktop/Tablet Only */}
         <div className="flex-grow-1 mx-4 d-none d-md-block">
           <div className="position-relative" style={{ maxWidth: '400px' }}>
             <input 
@@ -98,8 +111,8 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
                 height="40"
               />
               <div className="d-none d-lg-block text-start">
-                <div className="fw-semibold text-dark small">{user?.name}</div>
-                <div className="text-muted small">{user?.role}</div>
+                <div className="fw-semibold text-dark small">{user?.name || 'Admin User'}</div>
+                <div className="text-muted small">{user?.role || 'admin'}</div>
               </div>
               <i className="bi bi-chevron-down ms-2 text-muted small d-none d-lg-inline"></i>
             </button>
@@ -107,8 +120,8 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
             <ul className="dropdown-menu dropdown-menu-end shadow border-0">
               <li>
                 <div className="dropdown-header">
-                  <div className="fw-semibold">{user?.name}</div>
-                  <div className="text-muted small">{user?.email}</div>
+                  <div className="fw-semibold">{user?.name || 'Admin User'}</div>
+                  <div className="text-muted small">{user?.email || 'admin@admin.com'}</div>
                 </div>
               </li>
               <li><hr className="dropdown-divider" /></li>

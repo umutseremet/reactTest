@@ -5,6 +5,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Debug log
+  console.log('Sidebar render:', { isOpen });
+
   const menuItems = [
     { 
       id: 'dashboard', 
@@ -22,6 +25,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   const handleMenuClick = (path) => {
     navigate(path);
+    // Mobile'da menüye tıklayınca sidebar'ı kapat
     if (window.innerWidth < 992) {
       toggleSidebar();
     }
@@ -29,16 +33,44 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   const isActive = (path) => location.pathname === path;
 
+  // Mobile detection
+  const isMobile = window.innerWidth < 992;
+
   return (
     <>
       {/* Overlay for mobile */}
-      <div 
-        className={`sidebar-overlay ${isOpen ? 'show' : ''}`} 
-        onClick={toggleSidebar}
-      ></div>
+      {isMobile && isOpen && (
+        <div 
+          className={`sidebar-overlay ${isOpen ? 'show' : ''}`} 
+          onClick={toggleSidebar}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 1035
+          }}
+        />
+      )}
       
       {/* Sidebar */}
-      <div className={`sidebar ${isOpen ? 'show' : ''}`}>
+      <div 
+        className={`sidebar ${isOpen ? 'show' : ''}`}
+        style={{
+          zIndex: isMobile ? 1040 : 1020,
+          position: 'fixed',
+          top: 0,
+          left: isOpen ? 0 : -280,
+          width: 280,
+          height: '100vh',
+          background: 'white',
+          boxShadow: '2px 0 10px rgba(0, 0, 0, 0.1)',
+          transition: 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          overflowY: 'auto'
+        }}
+      >
         {/* Sidebar Header */}
         <div className="sidebar-header">
           <div className="d-flex align-items-center">
@@ -47,12 +79,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </div>
             <h4 className="logo-text mb-0 ms-3">acara</h4>
           </div>
-          <button 
-            className="btn btn-link text-muted d-lg-none ms-auto p-0"
-            onClick={toggleSidebar}
-          >
-            <i className="bi bi-x-lg fs-5"></i>
-          </button>
+          {/* Close button - sadece mobile'da göster */}
+          {isMobile && (
+            <button 
+              className="btn btn-link text-muted ms-auto p-0"
+              onClick={toggleSidebar}
+            >
+              <i className="bi bi-x-lg fs-5"></i>
+            </button>
+          )}
         </div>
         
         {/* Sidebar Content */}
