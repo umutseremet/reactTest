@@ -7,8 +7,6 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Debug için console log ekleyelim
-  console.log('Header props:', { toggleSidebar, sidebarOpen });
 
   const handleLogout = () => {
     logout();
@@ -16,7 +14,6 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
   };
 
   const handleMenuToggle = () => {
-    console.log('Hamburger menu clicked!');
     if (toggleSidebar) {
       toggleSidebar();
     } else {
@@ -39,7 +36,7 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
       <div className="container-fluid">
         {/* HAMBURGER MENU BUTTON - Tüm Ekranlarda Görünür */}
-        <button 
+        <button
           className="btn btn-outline-danger me-3 hamburger-menu-btn"
           onClick={handleMenuToggle}
           aria-label="Toggle sidebar"
@@ -64,9 +61,9 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
         {/* Search Bar - Desktop/Tablet Only */}
         <div className="flex-grow-1 mx-4 d-none d-md-block">
           <div className="position-relative" style={{ maxWidth: '400px' }}>
-            <input 
-              type="text" 
-              className="form-control ps-5" 
+            <input
+              type="text"
+              className="form-control ps-5"
               placeholder="Search here..."
             />
             <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
@@ -98,17 +95,21 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
 
           {/* User Dropdown */}
           <div className="dropdown">
-            <button 
-              className="btn btn-link text-decoration-none d-flex align-items-center p-2" 
+            <button
+              className="btn btn-link text-decoration-none d-flex align-items-center p-2"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <img 
-                src={user?.avatar || 'https://via.placeholder.com/40x40/FF6B6B/FFFFFF?text=AU'} 
-                alt="User Avatar" 
+              <img
+                src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'Admin User')}&size=40&background=FF6B6B&color=ffffff&bold=true`}
+                alt="User Avatar"
                 className="rounded-circle me-2"
                 width="40"
                 height="40"
+                onError={(e) => {
+                  // Fallback eğer link çalışmazsa
+                  e.target.src = 'https://ui-avatars.com/api/?name=AU&size=40&background=FF6B6B&color=ffffff&bold=true';
+                }}
               />
               <div className="d-none d-lg-block text-start">
                 <div className="fw-semibold text-dark small">{user?.name || 'Admin User'}</div>
@@ -116,7 +117,7 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
               </div>
               <i className="bi bi-chevron-down ms-2 text-muted small d-none d-lg-inline"></i>
             </button>
-            
+
             <ul className="dropdown-menu dropdown-menu-end shadow border-0">
               <li>
                 <div className="dropdown-header">
@@ -145,8 +146,8 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
               </li>
               <li><hr className="dropdown-divider" /></li>
               <li>
-                <button 
-                  className="dropdown-item text-danger d-flex align-items-center" 
+                <button
+                  className="dropdown-item text-danger d-flex align-items-center"
                   onClick={handleLogout}
                   type="button"
                 >

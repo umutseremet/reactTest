@@ -5,21 +5,18 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Debug log
-  console.log('Sidebar render:', { isOpen });
-
   const menuItems = [
-    { 
-      id: 'dashboard', 
-      label: 'Dashboard', 
-      icon: 'bi-speedometer2', 
-      path: '/dashboard' 
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
+      icon: 'bi-speedometer2',
+      path: '/dashboard'
     },
-    { 
-      id: 'production', 
-      label: 'Üretim Planlama', 
-      icon: 'bi-gear-fill', 
-      path: '/production' 
+    {
+      id: 'production',
+      label: 'Üretim Planlama',
+      icon: 'bi-gear-fill',
+      path: '/production'
     }
   ];
 
@@ -40,8 +37,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     <>
       {/* Overlay for mobile */}
       {isMobile && isOpen && (
-        <div 
-          className={`sidebar-overlay ${isOpen ? 'show' : ''}`} 
+        <div
+          className={`sidebar-overlay ${isOpen ? 'show' : ''}`}
           onClick={toggleSidebar}
           style={{
             position: 'fixed',
@@ -54,9 +51,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           }}
         />
       )}
-      
+
       {/* Sidebar */}
-      <div 
+      <div
         className={`sidebar ${isOpen ? 'show' : ''}`}
         style={{
           zIndex: isMobile ? 1040 : 1020,
@@ -81,7 +78,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </div>
           {/* Close button - sadece mobile'da göster */}
           {isMobile && (
-            <button 
+            <button
               className="btn btn-link text-muted ms-auto p-0"
               onClick={toggleSidebar}
             >
@@ -89,17 +86,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </button>
           )}
         </div>
-        
+
         {/* Sidebar Content */}
         <div className="sidebar-content">
-          {/* New Event Button */}
-          <div className="new-event-btn-container mb-4">
-            <button className="btn btn-danger w-100 d-flex align-items-center justify-content-center">
-              <i className="bi bi-plus-lg me-2"></i>
-              New Event
-            </button>
-          </div>
-          
           {/* Main Navigation */}
           <nav className="sidebar-nav">
             <div className="nav-section">
@@ -123,26 +112,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               ))}
             </div>
           </nav>
-          
+
           {/* Additional Menu Sections */}
           <div className="sidebar-footer-menus">
-            <div className="menu-section">
-              <div className="menu-section-header">
-                <i className="bi bi-app-indicator me-2"></i>
-                <span>Uygulamalar</span>
-              </div>
-              <div className="menu-items">
-                <button className="menu-item" type="button">
-                  <i className="bi bi-calendar3 me-2"></i>
-                  <span>Takvim</span>
-                </button>
-                <button className="menu-item" type="button">
-                  <i className="bi bi-envelope me-2"></i>
-                  <span>Mesajlar</span>
-                </button>
-              </div>
-            </div>
-            
+
             <div className="menu-section">
               <div className="menu-section-header">
                 <i className="bi bi-bar-chart me-2"></i>
@@ -159,7 +132,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 </button>
               </div>
             </div>
-            
+
             <div className="menu-section">
               <div className="menu-section-header">
                 <i className="bi bi-gear me-2"></i>
@@ -175,15 +148,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                   <span>Güvenlik</span>
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Sidebar Footer */}
-        <div className="sidebar-footer">
-          <div className="upgrade-card">
-            <div className="upgrade-icon">
-              <i className="bi bi-star-fill"></i>
             </div>
           </div>
         </div>

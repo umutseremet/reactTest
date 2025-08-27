@@ -12,7 +12,7 @@ class AuthService {
           name: 'Admin User',
           email: credentials.email,
           role: 'admin',
-          avatar: 'https://via.placeholder.com/40x40/FF6B6B/FFFFFF?text=AU',
+          avatar: 'https://ui-avatars.com/api/?name=Admin%20User&size=40&background=FF6B6B&color=ffffff&bold=true',
           permissions: ['read', 'write', 'delete'],
           lastLogin: new Date().toISOString()
         };

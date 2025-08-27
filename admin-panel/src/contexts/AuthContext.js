@@ -32,13 +32,13 @@ export const AuthProvider = ({ children }) => {
     try {
       // Simulate API call
       if (credentials.email === 'admin@admin.com' && credentials.password === 'admin123') {
-        const userData = {
-          id: 1,
-          name: 'Admin User',
-          email: credentials.email,
-          role: 'admin',
-          avatar: 'https://via.placeholder.com/40x40/FF6B6B/FFFFFF?text=AU'
-        };
+       const userData = {
+  id: 1,
+  name: 'Admin User',
+  email: credentials.email,
+  role: 'admin',
+  avatar: 'https://ui-avatars.com/api/?name=Admin%20User&size=40&background=FF6B6B&color=ffffff&bold=true'
+};
         
         const token = 'jwt-token-' + Date.now();
         
